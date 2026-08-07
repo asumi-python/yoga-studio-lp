@@ -111,7 +111,6 @@
     min-height: 28rem;
     display: flex; align-items: flex-end;
     background-size: cover; background-repeat: no-repeat;
-    border-bottom: 1px solid var(--line);
   }
   .photo-section::before {
     content: "";
@@ -123,13 +122,22 @@
   .photo-section h2, .photo-section .quote { color: #fff; }
   .photo-section .quote em { color: #cfe6ee; }
 
-  /* ---------- CLASSES ---------- */
-  .lesson-photo-section { background-image: url("images/hero-horizon.jpg"); background-position: center 40%; }
-  .class-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.6rem; }
-  .class-card { border: 1px solid var(--line); border-radius: 8px; padding: 1.6rem 1.7rem; background: var(--foam-raised); }
-  .class-card h3 { font-weight: 500; font-size: 1.05rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5em; }
-  .class-card h3 svg { width: 1em; height: 1em; color: var(--leaf); flex: none; }
-  .class-card p { margin: 0; color: var(--ink-soft); font-size: 0.92rem; font-weight: 300; }
+  /* ---------- CLASSES（カードを海の写真の上に直接置く） ---------- */
+  .lesson-photo-section {
+    background-image: url("images/hero-horizon.jpg"); background-position: center 40%;
+    min-height: auto; padding: 3.5rem 0;
+  }
+  .lesson-photo-section::before {
+    background: linear-gradient(180deg, rgba(10, 20, 22, 0.25) 0%, rgba(10, 20, 22, 0.55) 100%);
+  }
+  .class-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; margin-top: 1.8rem; }
+  .class-card {
+    border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 1.4rem 1.5rem;
+    background: rgba(255,255,255,0.14); backdrop-filter: blur(6px);
+  }
+  .class-card h3 { font-weight: 500; font-size: 1.05rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5em; color: #fff; }
+  .class-card h3 svg { width: 1em; height: 1em; color: var(--glint); flex: none; }
+  .class-card p { margin: 0; color: #eef4f2; font-size: 0.92rem; font-weight: 300; }
 
   /* ---------- HORIZON QUOTE（静かな波打ち際） ---------- */
   .horizon-section { background-image: url("images/quiet-water.jpg"); background-position: center; min-height: 24rem; }
@@ -137,7 +145,7 @@
   .quote em { font-style: normal; font-weight: 500; }
 
   /* ---------- VIEW PANORAMA（ヒーロー並みの大きさ、時間の流れとして1本につながった帯、文字を重ねる） ---------- */
-  .view-section { position: relative; padding: 4.5rem 0; border-bottom: 1px solid var(--line); }
+  .view-section { position: relative; }
   .view-head {
     position: absolute; top: 3rem; left: 0; right: 0; z-index: 2;
     text-align: center;
@@ -157,13 +165,16 @@
   .window img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .window .cap { position: absolute; bottom: 0.8rem; left: 0.9rem; z-index: 1; font-size: 0.75rem; letter-spacing: 0.14em; color: #fff; opacity: 0.95;
     text-shadow: 0 1px 4px rgba(0,0,0,0.5); }
-  .env-text { color: var(--ink-soft); font-weight: 300; max-width: 30em; margin: 1.8rem auto 0; text-align: center; }
+  .env-text { color: var(--ink-soft); font-weight: 300; max-width: 30em; margin: 0 auto; text-align: center; padding: 2.5rem 0; }
 
-  /* ---------- BOOKING ---------- */
-  .booking-card { border: 1px solid var(--sea); border-radius: 8px; padding: 2.4rem 2.2rem; text-align: center;
-    background: linear-gradient(180deg, color-mix(in srgb, var(--sky) 10%, transparent), transparent); }
-  .booking-card h2 { font-size: 1.4rem; margin-bottom: 0.7rem; }
-  .booking-card p { color: var(--ink-soft); max-width: 26em; margin: 0 auto 1.4rem; font-weight: 300; }
+  /* ---------- BOOKING（ヒーローと同じ写真で締めくくる） ---------- */
+  .booking-section {
+    background-image: url("images/hero-yoga.jpg"); background-position: center 35%;
+    text-align: center;
+  }
+  .booking-section .wrap { text-align: center; }
+  .booking-section h2 { font-size: 1.6rem; margin-bottom: 0.7rem; }
+  .booking-section p { color: #eef4f2; max-width: 26em; margin: 0 auto 1.4rem; font-weight: 300; }
 
   .site-footer { padding: 2.6rem 0 3.2rem; display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 0.8rem; }
   .foot-note { font-size: 0.72rem; letter-spacing: 0.05em; color: var(--ink-soft); }
@@ -207,12 +218,7 @@
         Classes
       </p>
       <h2 style="font-size: 1.8rem;">レッスン一覧</h2>
-    </div>
-  </section>
-
-  <section class="block">
-    <div class="wrap">
-      <div class="class-grid reveal">
+      <div class="class-grid">
         <div class="class-card">
           <h3><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8 6 4 9 4 14a8 8 0 0016 0c0-5-4-8-8-12z"/></svg>朝ヨガ</h3>
           <p>海を望むスタジオで、静かな朝のはじまりに。</p>
@@ -255,14 +261,12 @@
     <div class="wrap"><p class="env-text reveal">大きな窓から差し込む光と、季節ごとに表情を変える海。天気の良い日は、波の音まで聞こえてきます。</p></div>
   </section>
 
-  <section class="block" id="booking" style="border-bottom: none;">
+  <section class="photo-section booking-section" id="booking">
     <div class="wrap">
-      <div class="booking-card reveal">
-        <p class="eyebrow">Reservation</p>
-        <h2>体験レッスン、はじめませんか</h2>
-        <p>まずは一度、深呼吸をしにいらしてください。初回体験レッスンは¥3,300でご案内しています。</p>
-        <a class="btn" href="#">体験レッスンを予約する →</a>
-      </div>
+      <p class="eyebrow">Reservation</p>
+      <h2>体験レッスン、はじめませんか</h2>
+      <p>まずは一度、深呼吸をしにいらしてください。初回体験レッスンは¥3,300でご案内しています。</p>
+      <a class="btn" href="#">体験レッスンを予約する →</a>
     </div>
   </section>
 
