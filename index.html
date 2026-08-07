@@ -73,39 +73,44 @@
     border: 1px solid var(--sea); padding: 0.5em 1.1em; border-radius: 999px; text-decoration: none; white-space: nowrap; }
   .nav-cta:hover { background: var(--sea); color: var(--foam); }
 
-  /* ---------- HERO ---------- */
-  .hero { padding: 5rem 0 5.5rem; border-bottom: 1px solid var(--line);
-    background: linear-gradient(180deg, color-mix(in srgb, var(--sky) 16%, transparent), transparent 60%); }
-  .hero .wrap { display: grid; grid-template-columns: 1.15fr 1fr; gap: 3rem; align-items: center; }
-  .hero-word { font-size: clamp(2.6rem, 6vw, 4rem); letter-spacing: 0.08em; margin: 0.4rem 0 1rem; }
-  .hero-word small { display: block; font-size: 0.34em; letter-spacing: 0.3em; color: var(--sea); margin-top: 0.6rem; }
-  .hero-tagline { font-weight: 500; font-size: 1.3rem; max-width: 20em; margin-bottom: 0.9rem; }
-  .hero-sub { color: var(--ink-soft); max-width: 26em; margin-bottom: 1.8rem; font-weight: 300; }
+  /* ---------- PHOTO HERO (collage) ---------- */
+  .hero {
+    position: relative;
+    min-height: 34rem;
+    display: flex; align-items: flex-end;
+    background: url("images/hero-yoga.jpg") center 28% / cover no-repeat;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(10, 20, 22, 0.1) 0%, rgba(10, 20, 22, 0.75) 100%);
+  }
+  .hero .wrap { position: relative; z-index: 1; padding-bottom: 3rem; }
+  .hero .eyebrow { color: #cfe6ee; }
+  .hero-collage-photo {
+    position: absolute;
+    top: 2.2rem; right: 1.5rem;
+    width: 7.5rem; aspect-ratio: 4 / 5;
+    border: 5px solid #fdfdfb;
+    border-radius: 4px; overflow: hidden;
+    box-shadow: 0 0.8rem 2rem rgba(0,0,0,0.3);
+    transform: rotate(4deg);
+    z-index: 2;
+  }
+  .hero-collage-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-word { font-size: clamp(2.6rem, 6vw, 4rem); letter-spacing: 0.08em; margin: 0.4rem 0 1rem; color: #fff; }
+  .hero-word small { display: block; font-size: 0.34em; letter-spacing: 0.3em; color: #cfe6ee; margin-top: 0.6rem; }
+  .hero-tagline { font-weight: 500; font-size: 1.3rem; max-width: 20em; margin-bottom: 0.9rem; color: #fff; }
+  .hero-sub { color: #dfeaec; max-width: 26em; margin-bottom: 1.8rem; font-weight: 300; }
 
   .btn { display: inline-flex; align-items: center; gap: 0.5em; font-size: 0.85rem; letter-spacing: 0.04em;
     background: var(--sea); color: var(--foam); padding: 0.9em 1.6em; border-radius: 999px; text-decoration: none; }
   .btn:hover { background: var(--sea-deep); }
 
-  /* ---------- BREATH VISUAL ---------- */
-  .breath-wrap { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
-  .breath-circle {
-    width: 9rem; height: 9rem; border-radius: 50%; position: relative; overflow: hidden;
-    background:
-      radial-gradient(circle at 30% 22%, rgba(255,255,255,0.85), transparent 40%),
-      radial-gradient(circle at 70% 78%, color-mix(in srgb, var(--glint) 55%, transparent), transparent 45%),
-      linear-gradient(190deg, var(--sky), var(--sea) 62%, var(--sea-deep));
-    animation: breathe 6s ease-in-out infinite;
-    box-shadow: 0 1rem 2.5rem rgba(15, 76, 92, 0.18);
-  }
-  @keyframes breathe {
-    0%, 100% { transform: scale(0.88); }
-    50% { transform: scale(1.06); }
-  }
-  .breath-label { font-size: 0.78rem; letter-spacing: 0.18em; color: var(--ink-soft); }
-
-  /* ---------- reveal ---------- */
-  .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
-  .reveal.is-visible { opacity: 1; transform: translateY(0); }
+  /* ---------- reveal（JSが動かなくても既定で表示） ---------- */
+  .reveal { opacity: 1; transform: none; }
+  .reveal.pre { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.pre.is-visible { opacity: 1; transform: translateY(0); }
 
   section.block { padding: 4.5rem 0; border-bottom: 1px solid var(--line); }
   .block-head { margin-bottom: 2.2rem; }
@@ -136,19 +141,15 @@
   .quote { font-size: 1.15rem; font-weight: 300; max-width: 30em; }
   .quote em { font-style: normal; color: var(--sea); font-weight: 500; }
 
-  /* ---------- WINDOWS ---------- */
-  .window-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; margin-bottom: 1.8rem; }
-  .window { aspect-ratio: 4 / 3; border-radius: 6px; position: relative; overflow: hidden; border: 1px solid var(--line); }
-  .window::before { content: ""; position: absolute; inset: 0; }
-  .win-morning::before { background: linear-gradient(180deg, #cfe6ee 0%, #cfe6ee 55%, #2e7a8c 55%, #16515f 100%); }
-  .win-noon::before { background: linear-gradient(180deg, #7fb8d6 0%, #7fb8d6 48%, #14707f 48%, #0d4a55 100%); }
-  .win-evening::before { background: linear-gradient(180deg, #3a5a72 0%, #3a5a72 42%, #123b45 42%, #081f24 100%); }
-  .window .sun { position: absolute; width: 1.1rem; height: 1.1rem; border-radius: 50%; background: var(--glint);
-    box-shadow: 0 0 1.2rem color-mix(in srgb, var(--glint) 70%, transparent); }
-  .win-morning .sun { left: 18%; top: 46%; }
-  .win-noon .sun { left: 50%; top: 14%; width: 0.8rem; height: 0.8rem; }
-  .win-evening .sun { left: 76%; top: 38%; }
-  .window .cap { position: absolute; bottom: 0.5rem; left: 0.6rem; font-size: 0.7rem; letter-spacing: 0.1em; color: #fff; opacity: 0.85; }
+  /* ---------- VIEW COLLAGE（写真3枚を高さをずらして配置） ---------- */
+  .window-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; align-items: end; margin-bottom: 1.8rem; }
+  .window { border-radius: 6px; position: relative; overflow: hidden; border: 1px solid var(--line); }
+  .window img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .win-morning { aspect-ratio: 3 / 4; }
+  .win-noon { aspect-ratio: 3 / 5; }
+  .win-evening { aspect-ratio: 1 / 1; }
+  .window .cap { position: absolute; bottom: 0.5rem; left: 0.6rem; font-size: 0.7rem; letter-spacing: 0.1em; color: #fff; opacity: 0.9;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.5); }
   .env-text { color: var(--ink-soft); font-weight: 300; max-width: 30em; }
 
   /* ---------- BOOKING ---------- */
@@ -161,13 +162,13 @@
   .foot-note { font-size: 0.72rem; letter-spacing: 0.05em; color: var(--ink-soft); }
 
   @media (max-width: 720px) {
-    .hero .wrap { grid-template-columns: 1fr; }
+    .hero { min-height: 28rem; }
+    .hero-collage-photo { width: 5.5rem; top: 1.2rem; right: 1rem; }
     .class-grid { grid-template-columns: 1fr; }
     .window-grid { grid-template-columns: repeat(3, 1fr); gap: 0.7rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .breath-circle { animation: none; transform: scale(1); }
     .reveal { opacity: 1; transform: none; transition: none; }
   }
 </style>
@@ -182,18 +183,13 @@
   </header>
 
   <section class="hero">
+    <div class="hero-collage-photo" aria-hidden="true"><img src="images/hero-horizon.jpg" alt=""></div>
     <div class="wrap">
-      <div>
-        <p class="eyebrow">Yoga &amp; Breath Studio</p>
-        <h1 class="hero-word">凪<small>YOGA &amp; BREATH STUDIO</small></h1>
-        <p class="hero-tagline">波が凪ぐように、呼吸を整える。</p>
-        <p class="hero-sub">海を望む静かなスタジオで、呼吸から始まるヨガを。ゆっくり満ちて、ゆっくり引いていく時間です。</p>
-        <a class="btn" href="#booking">体験レッスンを予約する →</a>
-      </div>
-      <div class="breath-wrap" aria-hidden="true">
-        <div class="breath-circle"></div>
-        <span class="breath-label">吸って、吐いて。</span>
-      </div>
+      <p class="eyebrow">Yoga &amp; Breath Studio</p>
+      <h1 class="hero-word">凪<small>YOGA &amp; BREATH STUDIO</small></h1>
+      <p class="hero-tagline">波が凪ぐように、呼吸を整える。</p>
+      <p class="hero-sub">海を望む静かなスタジオで、呼吸から始まるヨガを。ゆっくり満ちて、ゆっくり引いていく時間です。</p>
+      <a class="btn" href="#booking">体験レッスンを予約する →</a>
     </div>
   </section>
 
@@ -244,9 +240,9 @@
         <h2>スタジオからの景色</h2>
       </div>
       <div class="window-grid reveal">
-        <div class="window win-morning"><div class="sun"></div><span class="cap">朝</span></div>
-        <div class="window win-noon"><div class="sun"></div><span class="cap">昼</span></div>
-        <div class="window win-evening"><div class="sun"></div><span class="cap">夕方</span></div>
+        <div class="window win-morning"><img src="images/view-morning.jpg" alt="朝の光と海"><span class="cap">朝</span></div>
+        <div class="window win-noon"><img src="images/view-noon.jpg" alt="昼、窓から見える海とヤシの葉"><span class="cap">昼</span></div>
+        <div class="window win-evening"><img src="images/view-evening.jpg" alt="夕方の海辺"><span class="cap">夕方</span></div>
       </div>
       <p class="env-text reveal">大きな窓から差し込む光と、季節ごとに表情を変える海。天気の良い日は、波の音まで聞こえてきます。</p>
     </div>
@@ -275,9 +271,9 @@
     var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var items = document.querySelectorAll('.reveal');
     if (reduced || !('IntersectionObserver' in window)) {
-      items.forEach(function (el) { el.classList.add('is-visible'); });
       return;
     }
+    items.forEach(function (el) { el.classList.add('pre'); });
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
